@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4" *ngIf="task">
+      <form #taskForm="ngForm" (submit)="processForm(task)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name"
+                 class="form-control"
+                 [(ngModel)]="task.name"
+                 name="task_name"
+                 type="text"
+                 required="required">
+        </div>
+        <div class="form-group">
+          <label for="name">Estimation</label>
+          <input id="estimation"
+                 class="form-control"
+                 [(ngModel)]="task.estimation"
+                 name="task_estimation"
+                 type="number"
+                 required="required">
+        </div>
+        <div class="form-group">
+          <label for="name">Period</label>
+          <input id="period"
+                 class="form-control"
+                 [(ngModel)]="task.period"
+                 name="task_period"
+                 type="number"
+                 required="required">
+        </div>
+        <input
+          type="submit"
+          value="Save"
+          class="btn btn-primary"
+          [disabled] = "!taskForm.form.valid">
+
+        <div class="alert-danger row" *ngIf="error">
+          {{error}}
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-8" *ngIf="tasks.length > 0">
+      <h3>Tasks</h3>
+      <div class="row">
+        <div class="col">
+          <strong>Name</strong>
+        </div>
+        <div class="col">
+          <strong>Estimation</strong>
+        </div>
+        <div class="col">
+          <strong>Period</strong>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row" *ngFor="let t of tasks"style="padding: 2px">
+        <div class="col">
+          {{ t.name }}
+        </div>
+        <div class="col">
+          {{ t.estimation }}
+        </div>
+        <div class="col">
+          {{ t.period }}
+        </div>
+        <div class="col">
+          <button class="btn btn-danger" (click)="deleteTask(t)">Delete</button>
+        </div>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary">Draw Gant chart</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-rms-chart [tasks]="tasks"></app-rms-chart>
