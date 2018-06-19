@@ -1,3 +1,36 @@
-<p>
-  rms-chart works!
-</p>
+<div class="chart-rms" *ngIf="scheduledTasks"
+     style="margin: 30px;"
+     [style.width.px]="stateTable[0].length*100+100">
+  <div class="row" *ngFor="let t of stateTable; let i = index">
+    <div class="col-xs-1 task"
+         style="width: 100px;
+          height: 30px;
+          padding: 0">
+      <strong>{{ scheduledTasks[i].name }}</strong>
+    </div>
+    <div *ngFor="let s of t; let k = index">
+      <div [style.background-color]="s == 0 ? 'blue' : 'transparent'"
+           class="col-xs-1 task"
+           style="width: 100px;
+            height: 30px;
+            margin-top: 5px;">
+        <div *ngIf="k%scheduledTasks[i].period == 0">|</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 task"
+         style="width: 100px;
+        height: 30px;
+        margin-top: 5px;"></div>
+    <div *ngFor="let s of stateTable[0]; let j = index">
+      <div class="col-xs-1 task"
+           style="width: 100px;
+        height: 30px;
+        margin-top: 5px;">
+        {{ j }}
+      </div>
+    </div>
+  </div>
+
+</div>

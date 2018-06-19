@@ -69,9 +69,13 @@
         </div>
       </div>
       <div class="col">
-        <button class="btn btn-primary">Draw Gant chart</button>
+        <button class="btn btn-primary" (click)="drawChart()">Draw Gant chart</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-danger" style="margin: 20px;" (click)="clearChart()">Reset</button>
       </div>
     </div>
   </div>
 </div>
-<app-rms-chart [tasks]="tasks"></app-rms-chart>
+<app-rms-chart [tasks]="tasks" #rmsChart></app-rms-chart>
+

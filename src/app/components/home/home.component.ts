@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ScheduleService} from "../../services/schedule.service";
 import {Task} from "../../model/task";
+import {RmsChartComponent} from "../rms-chart/rms-chart.component";
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,20 @@ import {Task} from "../../model/task";
 })
 export class HomeComponent implements OnInit {
 
-  tasks: Task[] = [];
+  tasks: Task[]  = [];
   task: Task = new Task();
   error: string;
+  isDrawChart: boolean = false;
 
-  constructor(private scheduleService: ScheduleService) { }
+  @ViewChild(RmsChartComponent)
+  private rmsChartComponent: RmsChartComponent;
+
+  constructor(private scheduleService: ScheduleService) {
+
+    this.tasks.push(new Task('t1', 3, 20));
+    this.tasks.push(new Task('t2', 2, 5));
+    this.tasks.push(new Task('t3', 2, 10));
+  }
 
   ngOnInit() {
   }
@@ -40,5 +50,14 @@ export class HomeComponent implements OnInit {
       console.log("removed" + index);
       this.tasks.splice(index, 1);
     }
+  }
+
+  drawChart() {
+    this.rmsChartComponent.resetData();
+    this.rmsChartComponent.schedule();
+  }
+
+  clearChart() {
+    this.rmsChartComponent.resetData();
   }
 }
