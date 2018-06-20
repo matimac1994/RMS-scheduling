@@ -53,8 +53,13 @@ export class HomeComponent implements OnInit {
   }
 
   drawChart() {
-    this.rmsChartComponent.resetData();
-    this.rmsChartComponent.schedule();
+    if (!this.scheduleService.checkPossibilityToSchedule(this.tasks)){
+      this.error = "ERROR Can't schedule";
+    } else {
+      this.error = null;
+      this.rmsChartComponent.resetData();
+      this.rmsChartComponent.schedule();
+    }
   }
 
   clearChart() {
